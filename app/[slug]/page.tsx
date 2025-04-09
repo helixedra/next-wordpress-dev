@@ -18,8 +18,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params;
-  const pageData = await fetchPageData(slug);
+  const pageData = await fetchPageData(params.slug);
+  if (!pageData) {
+    return {
+      title: process.env.NEXT_PUBLIC_SITE_TITLE,
+      description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
+    };
+  }
   return {
     title: `${process.env.NEXT_PUBLIC_SITE_TITLE} | ${
       pageData?.title.rendered ?? ""
@@ -35,8 +40,7 @@ export default async function DynamicPage({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params;
-  const pageData = await fetchPageData(slug);
+  const pageData = await fetchPageData(params.slug);
 
   if (!pageData) {
     notFound();
