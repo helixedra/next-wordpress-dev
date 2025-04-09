@@ -51,7 +51,7 @@ export default async function DynamicPage({
   }
 
   return (
-    <div>
+    <div className="text-center flex justify-center items-center flex-col max-w-5xl mx-auto">
       <h1>{pageData.title.rendered}</h1>
       <div dangerouslySetInnerHTML={{ __html: pageData.content.rendered }} />
     </div>
